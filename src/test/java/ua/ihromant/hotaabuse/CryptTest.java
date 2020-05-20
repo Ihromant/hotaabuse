@@ -44,6 +44,14 @@ public class CryptTest {
     }
 
     @Test
+    public void readLineNumbers() throws IOException {
+        for (int i = 0; i < 10; i++) {
+            BufferedImage image = env.makePicture(new Rectangle(new Point(497 + 40 * i, 760), new Dimension(30, 10)));
+            ImageIO.write(image, "png", new File("/tmp/pictures/test" + i + ".png"));
+        }
+    }
+
+    @Test
     public void compareImages() throws IOException {
         int[] bytes = ImageUtil.extractBytes("/tmp/pictures/test4.png");
         int[] bytes1 = ImageUtil.extractBytes("/tmp/pictures/test5.png");

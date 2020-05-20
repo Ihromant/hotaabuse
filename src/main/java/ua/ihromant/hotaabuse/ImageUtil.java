@@ -47,6 +47,14 @@ public class ImageUtil {
         }
     }
 
+    public static BufferedImage readNumberImageClassPath(int number) {
+        try {
+            return ImageIO.read(ImageUtil.class.getResourceAsStream("/numberimages/" + number + ".png"));
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public static boolean compareImages(BufferedImage first, BufferedImage second) {
         int[] bytesLeft = extractBytes(first);
         int[] bytesRight = extractBytes(second);
@@ -61,6 +69,6 @@ public class ImageUtil {
             }
         }
         double rate = 1.0 * counter / length;
-        return rate > 0.95;
+        return rate > 0.99;
     }
 }

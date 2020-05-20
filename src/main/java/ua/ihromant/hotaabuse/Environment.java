@@ -10,13 +10,17 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.OptionalInt;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Environment {
     private static final Point UNIT_QUEUE_TOP = new Point(497, 722);
+    private static final Point NUMBERS_QUEUE_TOP = new Point(497, 760);
     private static final Dimension UNIT_QUEUE_SIZE = new Dimension(30, 35);
+    private static final Dimension NUMBER_QUEUE_SIZE = new Dimension(30, 10);
     private static final int UNIT_QUEUE_OFFSET = 40;
     private static final double HEXAGON_RADIUS = 25;
     private static final double SIN_60 = Math.sin(Math.PI / 3);
@@ -42,8 +46,7 @@ public class Environment {
         List<BufferedImage> cachedImages = Arrays.stream(Unit.values())
                 .map(u -> ImageUtil.readImageClassPath(u.name().toLowerCase()))
                 .collect(Collectors.toList());
-        Unit[] result = new Unit[size];
-        return IntStream.range(0, result.length)
+        return IntStream.range(0, size)
                 .mapToObj(i -> {
                     Point p = new Point(UNIT_QUEUE_TOP);
                     p.translate(i * UNIT_QUEUE_OFFSET, 0);
@@ -57,6 +60,27 @@ public class Environment {
                     return Unit.UNKNOWN;
                 })
                 .toArray(Unit[]::new);
+    }
+
+    public Integer[] getNumbersFromQueue(int size) {
+        Map<Integer, BufferedImage> cachedImages = IntStream.range(0, 20)
+                .boxed().filter(i -> ImageUtil.readNumberImageClassPath(i) != null)
+                .collect(Collectors.toMap(Function.identity(), ImageUtil::readNumberImageClassPath));
+        return IntStream.range(0, size)
+                .mapToObj(i -> {
+                    Point p = new Point(NUMBERS_QUEUE_TOP);
+                    p.translate(i * UNIT_QUEUE_OFFSET, 0);
+                    OptionalInt found = IntStream.range(0, 20)
+                            .filter(j -> cachedImages.containsKey(j)
+                                    && ImageUtil.compareImages(cachedImages.get(j),
+                                    makePicture(new Rectangle(p, NUMBER_QUEUE_SIZE))))
+                            .findAny();
+                    if (found.isPresent()) {
+                        return found.getAsInt();
+                    }
+                    return Integer.MIN_VALUE;
+                })
+                .toArray(Integer[]::new);
     }
 
     public void click(int x, int y) {
@@ -78,7 +102,7 @@ public class Environment {
         System.out.println("Casting spell on place " + place + " and then to coordinates " + x + "," + y);
         robot.keyPress(KeyEvent.VK_C);
         robot.keyRelease(KeyEvent.VK_C);
-        delay(100);
+        delay(200);
         directClick(520 + place % 3 * 100, 260 + place / 3 * 100);
         delay(200);
         Point p = computeCenter(x, y);
