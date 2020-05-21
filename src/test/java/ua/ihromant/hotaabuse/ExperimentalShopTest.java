@@ -73,12 +73,10 @@ public class ExperimentalShopTest {
     }
 
     private void firstGolemKilling() {
-        int counter = 0;
         Integer[] numbs;
         while ((numbs = env.getNumbersFromQueue(7)) != null
             && (numbs[2] == null || !numbs[2].equals(10))) {
             // odd round from 5th
-            System.out.println(counter++ + ": " + Arrays.toString(numbs));
             env.clickWhenMoraleDef(12, 3, Unit.THUNDERBIRD);
             env.waitUnit();
             env.delayUntilQueueInState(Unit.ORC);
@@ -92,7 +90,7 @@ public class ExperimentalShopTest {
             env.clickWhenMoraleDef(3, 3, Unit.ORC);
             env.delayUntilQueueInState(Unit.THUNDERBIRD);
         }
-        env.cast(0, 3, 4);
+        env.cast(0, 3, 7);
         env.clickWhenMoraleDef(11, 3, Unit.THUNDERBIRD);
         env.waitUnit();
         env.delayUntilQueueInState(Unit.ORC);
@@ -108,17 +106,12 @@ public class ExperimentalShopTest {
         while (!Arrays.equals(new Unit[] {Unit.THUNDERBIRD, Unit.STEEL_GOLEM, Unit.STEEL_GOLEM, Unit.STEEL_GOLEM, Unit.STEEL_GOLEM, Unit.ORC},
                 env.getUnitsFromQueue(6))) {
             // odd round from 5th
-            System.out.println(counter++ + ": " + Arrays.toString(numbs));
             env.clickWhenMoraleDef(12, 3, Unit.THUNDERBIRD);
             env.waitUnit();
             env.delayUntilQueueInState(Unit.ORC);
             env.clickWhenMoraleDef(9, 3, Unit.ORC);
             env.delayUntilQueueInState(Unit.THUNDERBIRD);
             // even round from 6th
-            if (Arrays.equals(new Unit[] {Unit.THUNDERBIRD, Unit.STEEL_GOLEM, Unit.STEEL_GOLEM, Unit.STEEL_GOLEM, Unit.STEEL_GOLEM, Unit.ORC},
-                    env.getUnitsFromQueue(6))) {
-                break;
-            }
             env.clickWhenMoraleDef(0, 3, Unit.THUNDERBIRD);
             env.delayUntilQueueInState(Unit.ORC);
             env.waitUnit();
@@ -128,10 +121,151 @@ public class ExperimentalShopTest {
         }
     }
 
+    public void regroupForFourStacks() {
+        // 1st round
+        env.clickWhenMoraleDef(11, 5, Unit.THUNDERBIRD);
+        env.delayUntilQueueInState(Unit.ORC);
+        env.clickWhenMoraleDef(8, 5, Unit.ORC);
+        env.delayUntilQueueInState(Unit.THUNDERBIRD);
+        // 2 round
+        env.clickWhenMoraleDef(0, 7, Unit.THUNDERBIRD);
+        env.delayUntilQueueInState(Unit.ORC);
+        env.clickWhenMoraleDef(3, 7, Unit.ORC);
+        env.delayUntilQueueInState(Unit.THUNDERBIRD);
+        // 3 round
+        env.clickWhenMoraleDef(10, 10, Unit.THUNDERBIRD);
+        env.delayUntilQueueInState(Unit.ORC);
+        env.clickWhenMoraleDef(14, 6, Unit.ORC);
+        env.delayUntilQueueInState(Unit.THUNDERBIRD);
+        // 4 round
+        env.clickWhenMoraleDef(4, 0, Unit.THUNDERBIRD);
+        env.delayUntilQueueInState(Unit.ORC);
+        env.clickWhenMoraleDef(6, 4, Unit.ORC);
+        env.delayUntilQueueInState(Unit.THUNDERBIRD);
+        // 5 round
+        env.clickWhenMoraleDef(13, 0, Unit.THUNDERBIRD);
+        env.delayUntilQueueInState(Unit.ORC);
+        env.clickWhenMoraleDef(13, 10, Unit.ORC);
+        env.delayUntilQueueInState(Unit.THUNDERBIRD);
+        // 6 round
+        env.clickWhenMoraleDef(2, 0, Unit.THUNDERBIRD);
+        env.delayUntilQueueInState(Unit.ORC);
+        env.clickWhenMoraleDef(10, 10, Unit.ORC);
+        env.delayUntilQueueInState(Unit.THUNDERBIRD);
+    }
+
+    private void secondGolemKilling() {
+        while (!Arrays.equals(new Unit[] {Unit.THUNDERBIRD, Unit.STEEL_GOLEM, Unit.STEEL_GOLEM, Unit.STEEL_GOLEM, Unit.ORC},
+                env.getUnitsFromQueue(5))) {
+            // odd round from 5th
+            env.clickWhenMoraleDef(13, 0, Unit.THUNDERBIRD);
+            env.delayUntilQueueInState(Unit.ORC);
+            env.clickWhenMoraleDef(11, 1, Unit.ORC);
+            env.delayUntilQueueInState(Unit.THUNDERBIRD);
+            // even round from 6th
+            env.clickWhenMoraleDef(2, 0, Unit.THUNDERBIRD);
+            env.delayUntilQueueInState(Unit.ORC);
+            env.clickWhenMoraleDef(6, 3, Unit.ORC);
+            env.delayUntilQueueInState(Unit.THUNDERBIRD);
+        }
+    }
+
+    public void regroupForThreeStacks() {
+        env.clickWhenMoraleDef(13, 0, Unit.THUNDERBIRD);
+        env.delayUntilQueueInState(Unit.ORC);
+        env.clickWhenMoraleDef(8, 10, Unit.ORC);
+        env.delayUntilQueueInState(Unit.THUNDERBIRD);
+    }
+
+    private void thirdFourthGolemKilling() {
+        while (!Arrays.equals(new Unit[] {Unit.THUNDERBIRD, Unit.STEEL_GOLEM, Unit.STEEL_GOLEM, Unit.ORC},
+                env.getUnitsFromQueue(4))) {
+            // odd round from 5th
+            env.clickWhenMoraleDef(2, 0, Unit.THUNDERBIRD);
+            env.delayUntilQueueInState(Unit.ORC);
+            env.clickWhenMoraleDef(3, 2, Unit.ORC);
+            env.delayUntilQueueInState(Unit.THUNDERBIRD);
+            // even round from 6th
+            env.clickWhenMoraleDef(13, 0, Unit.THUNDERBIRD);
+            env.delayUntilQueueInState(Unit.ORC);
+            env.clickWhenMoraleDef(9, 2, Unit.ORC);
+            env.delayUntilQueueInState(Unit.THUNDERBIRD);
+        }
+        // odd round from 5th
+        env.clickWhenMoraleDef(2, 0, Unit.THUNDERBIRD);
+        env.delayUntilQueueInState(Unit.ORC);
+        env.clickWhenMoraleDef(4, 1, Unit.ORC);
+        env.delayUntilQueueInState(Unit.THUNDERBIRD);
+        while (!Arrays.equals(new Unit[] {Unit.THUNDERBIRD, Unit.STEEL_GOLEM, Unit.ORC},
+                env.getUnitsFromQueue(3))) {
+            // even round from 6th
+            env.clickWhenMoraleDef(13, 0, Unit.THUNDERBIRD);
+            env.delayUntilQueueInState(Unit.ORC);
+            env.clickWhenMoraleDef(10, 1, Unit.ORC);
+            env.delayUntilQueueInState(Unit.THUNDERBIRD);
+            // odd round from 5th
+            env.clickWhenMoraleDef(2, 0, Unit.THUNDERBIRD);
+            env.delayUntilQueueInState(Unit.ORC);
+            env.clickWhenMoraleDef(4, 1, Unit.ORC);
+            env.delayUntilQueueInState(Unit.THUNDERBIRD);
+        }
+    }
+
+    private void lastGolemKilling() {
+        Integer[] numbs;
+        while ((numbs = env.getNumbersFromQueue(3)) != null
+                && (numbs[1] == null || !numbs[1].equals(9))) {
+            // odd round from 5th
+            env.clickWhenMoraleDef(13, 0, Unit.THUNDERBIRD);
+            env.delayUntilQueueInState(Unit.ORC);
+            env.clickWhenMoraleDef(10, 0, Unit.ORC);
+            env.delayUntilQueueInState(Unit.THUNDERBIRD);
+            // even round from 6th
+            env.clickWhenMoraleDef(2, 0, Unit.THUNDERBIRD);
+            env.delayUntilQueueInState(Unit.ORC);
+            env.clickWhenMoraleDef(4, 0, Unit.ORC);
+            env.delayUntilQueueInState(Unit.THUNDERBIRD);
+        }
+//        env.cast(0, 3, 7);
+//        env.clickWhenMoraleDef(11, 3, Unit.THUNDERBIRD);
+//        env.waitUnit();
+//        env.delayUntilQueueInState(Unit.ORC);
+//        env.clickWhenMoraleDef(9, 3, Unit.ORC);
+//        env.delayUntilQueueInState(Unit.THUNDERBIRD);
+//        // even round from 6th
+//        env.clickWhenMoraleDef(0, 3, Unit.THUNDERBIRD);
+//        env.delayUntilQueueInState(Unit.ORC);
+//        env.waitUnit();
+//        env.delayUntilQueueInState(Unit.ORC);
+//        env.clickWhenMoraleDef(3, 3, Unit.ORC);
+//        env.delayUntilQueueInState(Unit.THUNDERBIRD);
+//        while (!Arrays.equals(new Unit[] {Unit.THUNDERBIRD, Unit.STEEL_GOLEM, Unit.STEEL_GOLEM, Unit.STEEL_GOLEM, Unit.STEEL_GOLEM, Unit.ORC},
+//                env.getUnitsFromQueue(6))) {
+//            // odd round from 5th
+//            env.clickWhenMoraleDef(12, 3, Unit.THUNDERBIRD);
+//            env.waitUnit();
+//            env.delayUntilQueueInState(Unit.ORC);
+//            env.clickWhenMoraleDef(9, 3, Unit.ORC);
+//            env.delayUntilQueueInState(Unit.THUNDERBIRD);
+//            // even round from 6th
+//            env.clickWhenMoraleDef(0, 3, Unit.THUNDERBIRD);
+//            env.delayUntilQueueInState(Unit.ORC);
+//            env.waitUnit();
+//            env.delayUntilQueueInState(Unit.ORC);
+//            env.clickWhenMoraleDef(3, 3, Unit.ORC);
+//            env.delayUntilQueueInState(Unit.THUNDERBIRD);
+//        }
+    }
+
     @Test
     public void fullScript() {
         begin();
         firstGolemKilling();
+        regroupForFourStacks();
+        secondGolemKilling();
+        regroupForThreeStacks();
+        thirdFourthGolemKilling();
+        lastGolemKilling();
     }
 
     public void readLineNumbers() throws IOException {

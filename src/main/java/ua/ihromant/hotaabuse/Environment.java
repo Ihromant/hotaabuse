@@ -102,9 +102,9 @@ public class Environment {
         System.out.println("Casting spell on place " + place + " and then to coordinates " + x + "," + y);
         robot.keyPress(KeyEvent.VK_C);
         robot.keyRelease(KeyEvent.VK_C);
-        delay(200);
+        delay(300);
         directClick(520 + place % 3 * 100, 260 + place / 3 * 100);
-        delay(200);
+        delay(300);
         Point p = computeCenter(x, y);
         directClick(p.x, p.y);
     }
